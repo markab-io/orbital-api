@@ -26,12 +26,14 @@ let userSchema = new Schema({
   id: String,
   name: String,
   email: { type: String, unique: true },
+  phone: { type: String },
+  social: { type: Object },
   password: {
     type: String
   },
   resetPasswordToken: {
     type: String,
-    set: function () {
+    set: function() {
       const buf = Buffer.alloc(10);
       crypto.randomFillSync(buf, 5);
       let randToken = buf.toString("hex");
@@ -40,7 +42,7 @@ let userSchema = new Schema({
   },
   confirmEmailToken: {
     type: String,
-    default: function () {
+    default: function() {
       const buf = Buffer.alloc(10);
       crypto.randomFillSync(buf, 5);
       let randToken = buf.toString("hex");
@@ -75,22 +77,22 @@ let userSchema = new Schema({
 userSchema.plugin(findOrCreate);
 userSchema.plugin(mongoosePaginate);
 
-userSchema.methods.verifyPassword = function (password) {
+userSchema.methods.verifyPassword = function(password) {
   if (bcrypt.compareSync(password, this.password)) {
     return this;
   }
   return false;
 };
 
-userSchema.methods.joiValidate = function (obj) {
+userSchema.methods.joiValidate = function(obj) {
   return Joi.validate(obj, userJoiSchema);
 };
 
-userSchema.statics.encryptPassword = function (newValue) {
+userSchema.statics.encryptPassword = function(newValue) {
   return bcrypt.hashSync(newValue, saltRounds);
 };
 
-userSchema.statics.joiValidate = function (obj) {
+userSchema.statics.joiValidate = function(obj) {
   return Joi.validate(obj, userJoiSchema);
 };
 
