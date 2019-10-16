@@ -17,14 +17,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/itechdom/playground.git"
+    "url": "git+https://github.com/markab-io/orbital-api.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/itechdom/playground/issues"
+    "url": "https://github.com/markab-io/orbital-api/issues"
   },
-  "homepage": "https://github.com/itechdom/playground#readme",
+  "homepage": "https://github.com/markab-io/orbital-api#readme",
   "dependencies": {
     "@markab.io/node": "^3.6.0",
     "apollo-server-express": "^2.1.0",
