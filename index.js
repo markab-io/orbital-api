@@ -15,7 +15,8 @@ const orbitalApi = ({
   notificationsModel,
   formsModel,
   kernelModel,
-  settingsModel
+  settingsModel,
+  mediaModel
 }) => {
   let authApiRoutes = authApi({
     config,
@@ -62,7 +63,11 @@ const orbitalApi = ({
     formsModel
   });
   let mediaApiRoutes = mediaApi({
-    config
+    config,
+    userModel,
+    permissionsModel,
+    formsModel,
+    mediaModel
   });
   return {
     authApiRoutes,
