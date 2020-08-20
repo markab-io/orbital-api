@@ -29,7 +29,7 @@
     "@markab.io/node": "^3.6.0",
     "apollo-server-express": "^2.1.0",
     "aws-sdk": "^2.403.0",
-    "bcrypt": "^3.0.1",
+    "bcrypt": "^5.0.0",
     "config": "^1.25.1",
     "dotenv": "^7.0.0",
     "express": "^4.14.1",
