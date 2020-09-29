@@ -6,13 +6,6 @@ const {
 } = require("@markab.io/node/acl-service/acl-service.js")
 const crudService = require("@markab.io/node/crud-service/crud-service")
 
-/* Zee:
-  1. why using "const" keyword for Acl? The alternatives are let and var, correct? 
-  2. why are you not using the app and config variables? why not removing them then? 
-  3. Access control list: it sets the permissionsModel (correct?) 
-      Dumb question: Where is this "list"?
-  4. it returns crudApi and aclApi > to whom? then what happens? 
- */
 const Acl = ({ config, permissionsModel }) => {
   const aclApi = aclService({ permissionsModel });
   let crudDomainLogic = {

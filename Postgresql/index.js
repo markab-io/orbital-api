@@ -1,47 +1,20 @@
-const mongoose = require("mongoose");
+const { Sequelize } = require('sequelize');
 
 const Postgresql = ({ config, onDBInit, onError, onDisconnect }) => {
-  //run seeds
-  const connection = mongoose.connect(`${config.get("db.host")}`, {
-    dbName: "orbital"
-  }); // connect to database
-  const schemas = {};
-
-  //extract resource and format mongodb schema
-  connection
-    .then(({ models }) => {
-      Object.keys(models).map(modelName => {
-        let pathObject = models[modelName].schema.paths;
-        schemas[modelName] = pathObject;
-      });
-      onDBInit(models, schemas);
-    })
-    .catch(err => {
-      console.log("connect error", err);
-    });
-
-  // If the connection throws an error
-  mongoose.connection.on("error", function(err) {
-    console.log("Mongoose default connection error: " + err);
-    if (onError) {
-      onError(err);
-    }
-  });
-
-  // If the connection is disconnected
-  mongoose.connection.on("disconnected", function() {
-    console.log("Mongoose default connection disconnected");
-    if (onDisconnect) {
-      onDisconnect();
-    }
-  });
-
-  return connection;
+  const sequelize = new Sequelize(`${config.get("db.host")}`) // Example for postgres
+  try {
+  await sequelize.authenticate();
+  onDBInit()
+  console.log('Connection has been established successfully.');
+} catch (error) {
+  onError(error)
+  console.error('Unable to connect to the database:', error);
+}
 };
 
 // Close the database connection when the node process terminates for whatever reason
 process.on("SIGINT", function() {
-  mongoose.connection.close(function() {
+  Sequelize.connection.close(function() {
     console.log(
       "Mongoose default connection disconnected through app termination"
     );
